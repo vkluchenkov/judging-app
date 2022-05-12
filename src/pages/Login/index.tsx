@@ -1,11 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
 import { styles } from './styles';
-import { Box, Button, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import React from "react";
+import { useForm } from 'react-hook-form';
+import { LoginForm } from './types';
+import { FormInputField } from '../../ui-kit/FormInputFIeld';
 
 export const Login: React.FC = () => {
-  const onSubmit = () => { }
+
+  const { handleSubmit, control } = useForm<LoginForm>();
+
+  const onSubmit = handleSubmit(
+    (values) => { }
+  )
 
   return (
     <Box
@@ -22,16 +30,16 @@ export const Login: React.FC = () => {
         </Typography>
         <Grid container css={styles.gridContainer}>
           <Grid item xs={12}>
-            <TextField
-              css={styles.input}
+            <FormInputField
+              control={control}
               name='username'
               label='Username'
               helperText='Use Demo'
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              css={styles.input}
+            <FormInputField
+              control={control}
               name='password'
               label='Password'
               type={'password'}

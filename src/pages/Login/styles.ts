@@ -18,9 +18,6 @@ export const styles = createStyles({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  input: {
-    width: '100%',
-  },
   gridContainer: {
     display: 'flex',
     flexDirection: 'column',
