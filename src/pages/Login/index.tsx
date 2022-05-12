@@ -26,7 +26,7 @@ export const Login: React.FC = () => {
         css={styles.paper}
       >
         <Typography variant='h4' align='center'>
-          Judge login
+          Please login
         </Typography>
         <Grid container css={styles.gridContainer}>
           <Grid item xs={12}>
