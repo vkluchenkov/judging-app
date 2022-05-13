@@ -1,20 +1,35 @@
 /** @jsxImportSource @emotion/react */
 
-import { Box, Button, List, ListItem, Typography } from "@mui/material";
+import { Box, Button, List, ListItem, Tooltip, Typography } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { FormInputField } from "../../ui-kit/Input/FormInputFIeld";
 import { ScoringSlider } from "../../ui-kit/ScoringSlider";
 import { styles } from "./styles";
 import { ScoringForm, ScoringProps } from "./types"
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 const criterias = [
-  'Choreography',
-  'Technique',
-  'Composition',
-  'Image',
-  'Music conformity',
-  'Synchronization'
+  {
+    name: 'Choreography',
+    description: 'Some kind of short description, explaining what this criteria means'
+  },
+  {
+    name: 'Technique',
+    description: 'Some kind of short description, explaining what this criteria means'
+  },
+  {
+    name: 'Image',
+    description: 'Some kind of short description, explaining what this criteria means'
+  },
+  {
+    name: 'Music conformity',
+    description: 'Some kind of short description, explaining what this criteria means'
+  },
+  {
+    name: 'Group Synchronization',
+    description: 'Some kind of short description, explaining what this criteria means'
+  },
 ]
 
 export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNumber }) => {
@@ -45,10 +60,10 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
           variant="body1"
           css={{ minWidth: "150px" }}
         >
-          {criteria}:
+          {criteria.name}:<Tooltip title={criteria.description}><HelpOutlineIcon fontSize="inherit" color="disabled" /></Tooltip>
         </Typography>
         <ScoringSlider
-          name={criteria}
+          name={criteria.name}
           control={control}
         />
       </ListItem>

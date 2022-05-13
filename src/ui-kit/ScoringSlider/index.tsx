@@ -12,7 +12,7 @@ export const ScoringSlider: React.FC<ScoringSliderProps> = ({ name, control }) =
     {
       name,
       control,
-      defaultValue: 1,
+      defaultValue: 5,
     }
   );
   return (
