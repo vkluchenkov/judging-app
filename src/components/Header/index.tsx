@@ -4,7 +4,6 @@ import { Alert, Box, Button, Snackbar, Typography } from "@mui/material"
 import { useState } from "react"
 import { styles } from "./styles"
 import { HeaderProps } from "./types"
-import clsx from "clsx"
 
 export const Header: React.FC<HeaderProps> = ({ currentContest, currentCategory, judge }) => {
 
@@ -25,7 +24,7 @@ export const Header: React.FC<HeaderProps> = ({ currentContest, currentCategory,
       </div>
       <div css={styles.judge}>
         <Typography variant="body1">
-          Judge: {judge}
+          Hi {judge}!
         </Typography>
         <Button size="small" onClick={handleHelp}>
           Call help
