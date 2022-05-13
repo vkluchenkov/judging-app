@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { Box, Button, List, ListItem, Typography } from "@mui/material";
+import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { FormInputField } from "../../ui-kit/Input/FormInputFIeld";
 import { ScoringSlider } from "../../ui-kit/ScoringSlider";
@@ -18,11 +19,24 @@ const criterias = [
 
 export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNumber }) => {
 
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
   const { control, handleSubmit } = useForm<ScoringForm>();
 
   const onSubmit = handleSubmit((values) => {
+    setIsSubmitted(true)
     console.log(values)
   })
+
+  if (isSubmitted) {
+    return (
+      <Box css={styles.box}>
+        <Typography variant="h4" align="center" css={styles.thankYou}>
+          Thank you! Please wait for the next participant.
+        </Typography>
+      </Box>
+    )
+  }
 
   const ScoringList = () => criterias.map((criteria, index) => {
     return (

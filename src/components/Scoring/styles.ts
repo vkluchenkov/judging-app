@@ -29,4 +29,7 @@ export const styles = createStyles({
     alignSelf: 'center',
     margin: '20px 0 0',
   },
+  thankYou: {
+    margin: '30px 0 0',
+  },
 });
