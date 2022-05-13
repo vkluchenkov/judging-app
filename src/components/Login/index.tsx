@@ -1,29 +1,21 @@
 /** @jsxImportSource @emotion/react */
 
+import React from "react";
 import { styles } from './styles';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
-import React, { useContext, useEffect } from "react";
 import { useForm } from 'react-hook-form';
-import { LoginForm } from './types';
+import { LoginForm, LoginProps } from './types';
 import { FormInputField } from '../../ui-kit/FormInputFIeld';
-import { UserContext } from '../../contexts/UserContext';
-import { useNavigate } from 'react-router-dom';
 
-export const Login: React.FC = () => {
-  const navigate = useNavigate();
-  const currentUser = useContext(UserContext);
+export const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const { handleSubmit, control } = useForm<LoginForm>();
 
-  useEffect(() => {
-    if (currentUser.isLoggedIn) {
-      navigate('/')
+  const onSubmit = handleSubmit(
+    (values) => {
+      console.log(values);
+      onLogin()
     }
-  }, [currentUser.isLoggedIn, navigate])
-
-  const onSubmit = handleSubmit((values) => {
-    currentUser.isLoggedIn = true;
-    navigate('/')
-  })
+  )
 
   return (
     <Box
