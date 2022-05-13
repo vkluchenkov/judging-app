@@ -3,8 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { GuardedRoute } from './components/GuardedRoute';
 import { UserContext } from './contexts/UserContext';
-import { Login } from './pages/Login';
-import { Main } from './pages/Main';
+import { Login } from './components/Login';
+import { Main } from './components/Main';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({ isLoggedIn: false })
