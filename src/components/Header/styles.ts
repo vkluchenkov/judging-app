@@ -25,14 +25,4 @@ export const styles = createStyles({
       margin: '15px 0 0',
     },
   },
-  alert: {
-    position: 'absolute',
-    bottom: '10px',
-    left: '10px',
-    opacity: 0,
-    transition: 'opacity 1s',
-    '&.alertActive': {
-      opacity: 1,
-    },
-  },
 });
