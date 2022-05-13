@@ -8,6 +8,7 @@ import { LoginForm, LoginProps } from './types';
 import { FormInputField } from '../../ui-kit/FormInputFIeld';
 
 export const Login: React.FC<LoginProps> = ({ onLogin }) => {
+
   const { handleSubmit, control } = useForm<LoginForm>();
 
   const onSubmit = handleSubmit(
