@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom"
 import { Header } from "../Header"
 import { UserContext } from "../../contexts/UserContext"
 
-export const Main: React.FC = () => {
+interface MainProps {
+  onLogout: () => void;
+}
+
+export const Main: React.FC<MainProps> = ({ onLogout }) => {
   const currentUser = useContext(UserContext)
   const navigate = useNavigate()
 
@@ -15,8 +19,7 @@ export const Main: React.FC = () => {
   return (
     <>
       <Header currentContest="Dance Weekend in Warsaw 2023" judge="Leandro Ferreyra" currentCategory="Break until 15:00" />
-      <Button onClick={handleLogout}>Logout</Button>
-      <Button onClick={() => navigate('/login')}>Go to login</Button>
+      <Button onClick={onLogout}>Logout</Button>
     </>
   )
 }
