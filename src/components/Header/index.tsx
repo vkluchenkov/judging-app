@@ -10,12 +10,6 @@ export const Header: React.FC<HeaderProps> = ({ currentContest, currentCategory,
 
   const [alertActive, setAlertActive] = useState(false)
 
-  // const handleHelp = async () => {
-  //   const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-  //   setAlertActive(true);
-  //   await delay(3000)
-  //   setAlertActive(false);
-  // }
   const handleHelp = () => setAlertActive(true);
   const onAlertClose = () => setAlertActive(false);
 
@@ -37,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({ currentContest, currentCategory,
           Call help
         </Button>
       </div>
-      <Snackbar open={alertActive} autoHideDuration={5000} onClose={onAlertClose}>
+      <Snackbar open={alertActive} autoHideDuration={5000} onClose={onAlertClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
         <Alert severity="success" onClose={onAlertClose}>
           Help request was sent!
         </Alert>
