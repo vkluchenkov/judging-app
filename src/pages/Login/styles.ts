@@ -6,7 +6,7 @@ export const styles = createStyles({
     flexDirection: 'column',
     gap: '15px',
     maxWidth: '450px',
-    width: '100%',
+    width: '90%',
     padding: '25px',
     boxSizing: 'border-box',
   },

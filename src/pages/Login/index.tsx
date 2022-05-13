@@ -11,22 +11,19 @@ import { useNavigate } from 'react-router-dom';
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
-
   const currentUser = useContext(UserContext);
-
   const { handleSubmit, control } = useForm<LoginForm>();
 
-  const onSubmit = handleSubmit(
-    (values) => {
-      currentUser.isLoggedIn = true;
-      navigate('/')
-    }
-  )
   useEffect(() => {
     if (currentUser.isLoggedIn) {
       navigate('/')
     }
   }, [currentUser.isLoggedIn, navigate])
+
+  const onSubmit = handleSubmit((values) => {
+    currentUser.isLoggedIn = true;
+    navigate('/')
+  })
 
   return (
     <Box
