@@ -27,7 +27,7 @@ const criterias = [
     description: 'Some kind of short description, explaining what this criteria means'
   },
   {
-    name: 'Group Synchronization',
+    name: 'Group sync',
     description: 'Some kind of short description, explaining what this criteria means'
   },
 ]
@@ -60,7 +60,15 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
           variant="body1"
           css={{ minWidth: "150px" }}
         >
-          {criteria.name}:<Tooltip title={criteria.description}><HelpOutlineIcon fontSize="inherit" color="disabled" /></Tooltip>
+          {criteria.name}:
+          <Tooltip
+            title={criteria.description}
+            enterTouchDelay={0}
+            leaveDelay={5000}
+            leaveTouchDelay={5000}
+          >
+            <HelpOutlineIcon fontSize="inherit" color="disabled" />
+          </Tooltip>
         </Typography>
         <ScoringSlider
           name={criteria.name}
