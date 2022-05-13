@@ -5,7 +5,7 @@ import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import React, { useContext, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { LoginForm } from './types';
-import { FormInputField } from '../../ui-kit/FormInputFIeld';
+import { FormInputField } from '../../ui-kit/Input/FormInputFIeld';
 import { UserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 
