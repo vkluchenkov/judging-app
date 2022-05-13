@@ -8,7 +8,7 @@ interface MainProps {
 export const Main: React.FC<MainProps> = ({ onLogout }) => {
   return (
     <>
-      <Header currentContest="Dance Weekend in Warsaw 2023" judge="Leandro Ferreyra" currentCategory="Break until 15:00" />
+      <Header currentContest="Dance Weekend in Warsaw" judge="Leandro Ferreyra" currentCategory="Professionals semi-final" />
       <Button onClick={onLogout}>Logout</Button>
     </>
   )
