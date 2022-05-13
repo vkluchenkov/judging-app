@@ -1,6 +1,5 @@
 import { Button } from "@mui/material"
 import { useContext } from "react"
-import { useNavigate } from "react-router-dom"
 import { Header } from "../Header"
 import { UserContext } from "../../contexts/UserContext"
 
