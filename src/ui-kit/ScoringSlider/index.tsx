@@ -1,30 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
-import { Slider } from "@mui/material";
-import { useController } from "react-hook-form";
+import { Slider, SliderProps } from "@mui/material";
 import { styles } from "./styles";
-import { ScoringSliderProps } from "./types";
 
-export const ScoringSlider: React.FC<ScoringSliderProps> = ({ name, control }) => {
-  const {
-    field: { onChange, value, ref },
-  } = useController(
-    {
-      name,
-      control,
-      defaultValue: 5,
-    }
-  );
+export const ScoringSlider: React.FC<SliderProps> = (props) => {
+
   return (
     <Slider
+      {...props}
       css={styles.slider}
-      onChange={onChange}
-      value={value}
       valueLabelDisplay="off"
       step={1}
-      name={name}
-      ref={ref}
-      // size={'small'}
       marks={[
         {
           value: 1,

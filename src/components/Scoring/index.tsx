@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form"
+import React, { useMemo, useState } from "react";
 import { Box, Button, List, ListItem, Tooltip, Typography } from "@mui/material";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { FormInputField } from "../../ui-kit/Input/FormInputFIeld";
 import { ScoringSlider } from "../../ui-kit/ScoringSlider";
 import { MessageScreen } from "../MessageScreen";
 import { styles } from "./styles";
-import { ScoringForm, ScoringProps } from "./types"
+import { ScoringProps } from "./types"
 import { Criteria } from "../../models/criteria";
 
 const criterias: Criteria[] = [
@@ -43,14 +42,30 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
 
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const { control, handleSubmit } = useForm<ScoringForm>();
+  const [note, setNote] = useState('')
+  const [sliders, setSliders] = useState<Record<string, number | number[]>>({})
 
-  const onSubmit = handleSubmit((values) => {
-    setIsSubmitted(true)
-    console.log(values)
+  const noteHandler = (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setNote(evt.target.value)
+
+  const sliderHandler = (evt: Event, value: number | number[]) => setSliders((state) => {
+    const event = evt as never as React.ChangeEvent<HTMLInputElement>
+    state[event.target?.name] = value;
+    return state
   })
 
+  const onSubmit = (evt: React.FormEvent) => {
+    evt.preventDefault()
+    setIsSubmitted(true)
+    console.log({ ...sliders, note })
+  }
+
   const scoringSliders = useMemo(() => criterias.map((criteria) => {
+
+    setSliders((state) => {
+      state[criteria.name] = 5
+      return state
+    })
+
     return (
       <ListItem css={styles.listItem} key={'criteria' + criteria.id}>
         <Typography
@@ -69,11 +84,14 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
         </Typography>
         <ScoringSlider
           name={criteria.name}
-          control={control}
+          defaultValue={5}
+          value={sliders[criteria.name]}
+          onChange={sliderHandler}
+
         />
       </ListItem>
     )
-  }), [control])
+  }), [sliders])
 
   if (isSubmitted) {
     return <MessageScreen message="Thank you! Please wait for the next participant." />
@@ -89,11 +107,12 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
       </List>
       <FormInputField
         css={styles.note}
-        control={control}
         name='Note'
         label='Note (optional)'
         multiline={true}
         minRows={3}
+        value={note}
+        onChange={noteHandler}
       />
       <Button
         type='submit'
