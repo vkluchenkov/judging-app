@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form"
 import { Box, Button, List, ListItem, Tooltip, Typography } from "@mui/material";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -50,11 +50,7 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
     console.log(values)
   })
 
-  if (isSubmitted) {
-    return <MessageScreen message="Thank you! Please wait for the next participant." />
-  }
-
-  const ScoringList = () => criterias.map((criteria) => {
+  const scoringSliders = useMemo(() => criterias.map((criteria) => {
     return (
       <ListItem css={styles.listItem} key={'criteria' + criteria.id}>
         <Typography
@@ -77,7 +73,11 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
         />
       </ListItem>
     )
-  })
+  }), [criterias])
+
+  if (isSubmitted) {
+    return <MessageScreen message="Thank you! Please wait for the next participant." />
+  }
 
   return (
     <Box css={styles.box} component='form' onSubmit={onSubmit}>
@@ -85,7 +85,7 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
         #{participantNumber}: <strong>{participantName}</strong>
       </Typography>
       <List css={styles.list}>
-        {ScoringList()}
+        {scoringSliders}
       </List>
       <FormInputField
         css={styles.note}
