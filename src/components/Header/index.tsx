@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { Alert, Box, Button, Snackbar, Typography } from "@mui/material"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { styles } from "./styles"
 import { HeaderProps } from "./types"
 
@@ -9,8 +9,14 @@ export const Header: React.FC<HeaderProps> = ({ currentContest, currentCategory,
 
   const [alertActive, setAlertActive] = useState(false)
 
-  const handleHelp = () => setAlertActive(true);
-  const onAlertClose = () => setAlertActive(false);
+
+  const handleHelp = useCallback(() => {
+    setAlertActive(true)
+  }, [setAlertActive]);
+
+  const onAlertClose = useCallback(() => {
+    setAlertActive(false);
+  }, [setAlertActive]);
 
   return (
     <Box css={styles.box}>
