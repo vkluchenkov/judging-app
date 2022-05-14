@@ -29,4 +29,7 @@ export const styles = createStyles({
     alignSelf: 'center',
     margin: '20px 0 0',
   },
+  criteria: {
+    minWidth: '150px',
+  },
 });

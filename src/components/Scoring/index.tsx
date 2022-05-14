@@ -59,7 +59,7 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
       <ListItem css={styles.listItem} key={'criteria' + criteria.id}>
         <Typography
           variant="body1"
-          css={{ minWidth: "150px" }}
+          css={styles.criteria}
         >
           {criteria.name}:
           <Tooltip
