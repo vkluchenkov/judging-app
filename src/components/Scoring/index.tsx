@@ -73,7 +73,7 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
         />
       </ListItem>
     )
-  }), [criterias])
+  }), [criterias, control])
 
   if (isSubmitted) {
     return <MessageScreen message="Thank you! Please wait for the next participant." />
