@@ -12,11 +12,11 @@ export const Header: React.FC<HeaderProps> = ({ currentContest, currentCategory,
 
   const handleHelp = useCallback(() => {
     setAlertActive(true)
-  }, [setAlertActive]);
+  }, []);
 
   const onAlertClose = useCallback(() => {
     setAlertActive(false);
-  }, [setAlertActive]);
+  }, []);
 
   return (
     <Box css={styles.box}>
