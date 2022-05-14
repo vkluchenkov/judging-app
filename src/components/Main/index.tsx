@@ -3,7 +3,6 @@ import { Header } from "../Header"
 import { Scoring } from "../Scoring"
 
 export const Main: React.FC = () => {
-
   return (
     <>
       <Header
@@ -18,3 +17,4 @@ export const Main: React.FC = () => {
     </>
   )
 }
+
