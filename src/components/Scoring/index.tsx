@@ -39,18 +39,22 @@ const criterias: Criteria[] = [
 ]
 
 export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNumber }) => {
-
   const [isSubmitted, setIsSubmitted] = useState(false)
-
   const [note, setNote] = useState('')
-  const [sliders, setSliders] = useState<Record<string, number | number[]>>({})
+  const [sliders, setSliders] = useState<Record<string, number | number[]>>(() => {
+    const res: Record<string, number | number[]> = {};
+    criterias.forEach((c) => (res[c.name] = 5))
+    return res;
+  })
 
   const noteHandler = (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setNote(evt.target.value)
 
   const sliderHandler = (evt: Event, value: number | number[]) => setSliders((state) => {
     const event = evt as never as React.ChangeEvent<HTMLInputElement>
-    state[event.target?.name] = value;
-    return state
+    return ({
+      ...state,
+      [event.target?.name]: value,
+    })
   })
 
   const onSubmit = (evt: React.FormEvent) => {
@@ -59,43 +63,32 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
     console.log({ ...sliders, note })
   }
 
-  const scoringSliders = useMemo(() => criterias.map((criteria) => {
-
-    setSliders((state) => {
-      state[criteria.name] = 5
-      return state
-    })
-
-    return (
-      <ListItem css={styles.listItem} key={'criteria' + criteria.id}>
-        <Typography
-          variant="body1"
-          css={styles.criteria}
+  const scoringSliders = useMemo(() => criterias.map((criteria) => (
+    <ListItem css={styles.listItem} key={'criteria' + criteria.id}>
+      <Typography
+        variant="body1"
+        css={styles.criteria}
+      >
+        {criteria.name}:
+        <Tooltip
+          title={criteria.description}
+          enterTouchDelay={0}
+          leaveDelay={5000}
+          leaveTouchDelay={5000}
         >
-          {criteria.name}:
-          <Tooltip
-            title={criteria.description}
-            enterTouchDelay={0}
-            leaveDelay={5000}
-            leaveTouchDelay={5000}
-          >
-            <HelpOutlineIcon fontSize="inherit" color="disabled" />
-          </Tooltip>
-        </Typography>
-        <ScoringSlider
-          name={criteria.name}
-          defaultValue={5}
-          value={sliders[criteria.name]}
-          onChange={sliderHandler}
+          <HelpOutlineIcon fontSize="inherit" color="disabled" />
+        </Tooltip>
+      </Typography>
+      <ScoringSlider
+        name={criteria.name}
+        value={sliders[criteria.name]}
+        onChange={sliderHandler}
+      />
+    </ListItem>
+  )
+  ), [sliders])
 
-        />
-      </ListItem>
-    )
-  }), [sliders])
-
-  if (isSubmitted) {
-    return <MessageScreen message="Thank you! Please wait for the next participant." />
-  }
+  if (isSubmitted) return <MessageScreen message="Thank you! Please wait for the next participant." />
 
   return (
     <Box css={styles.box} component='form' onSubmit={onSubmit}>
