@@ -48,7 +48,14 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button fullWidth size='large' variant='contained' type='submit' disableElevation>
+            <Button
+              fullWidth
+              size='large'
+              variant='contained'
+              type='submit'
+              disableElevation
+              data-test='submit-button'
+            >
               Login
             </Button>
           </Grid>
