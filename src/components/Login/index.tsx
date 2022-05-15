@@ -12,7 +12,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
-    if (username.length > 1 && password.length > 1) setButtonDisabled(false);
+    if (username.length > 1 && password.length > 5) setButtonDisabled(false);
   }, [username, password]);
 
   const onSubmit = (evt: React.FormEvent) => {
@@ -52,7 +52,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
               value={password}
               onChange={changeHandler}
               required
-              inputProps={{ minLength: 2 }}
+              inputProps={{ minLength: 5 }}
               data-test='password-input'
             />
           </Grid>
