@@ -41,11 +41,10 @@ const criterias: Criteria[] = [
 export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNumber }) => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [note, setNote] = useState('')
-  const [sliders, setSliders] = useState<Record<string, number | number[]>>(() => {
-    const res: Record<string, number | number[]> = {};
-    criterias.forEach((c) => (res[c.name] = 5))
-    return res;
-  })
+  const [sliders, setSliders] = useState<Record<string, number | number[]>>(criterias.reduce((acc, c) => {
+    acc[c.name] = 5
+    return acc;
+  }, {} as Record<string, number | number[]>))
 
   const noteHandler = (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setNote(evt.target.value)
 
