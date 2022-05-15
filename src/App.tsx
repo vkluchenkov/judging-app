@@ -4,14 +4,12 @@ import { Login } from './components/Login';
 import { Main } from './components/Main';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogout = () => setIsLoggedIn(false)
-  const handleLogin = () => setIsLoggedIn(true)
+  const handleLogout = () => setIsLoggedIn(false);
+  const handleLogin = () => setIsLoggedIn(true);
 
-  return (
-    isLoggedIn ? <Main /> : <Login onLogin={handleLogin} />
-  );
+  return isLoggedIn ? <Main /> : <Login onLogin={handleLogin} />;
 }
 
 export default App;

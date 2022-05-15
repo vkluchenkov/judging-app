@@ -1,36 +1,29 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { styles } from './styles';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import { LoginProps } from './types';
-import { FormInputField } from "../../ui-kit/Input/FormInputFIeld";
+import { FormInputField } from '../../ui-kit/Input/FormInputFIeld';
 
 export const Login: React.FC<LoginProps> = ({ onLogin }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const onSubmit = (evt: React.FormEvent) => {
-    evt.preventDefault()
+    evt.preventDefault();
     console.log({ username, password });
-    onLogin()
-  }
+    onLogin();
+  };
 
   const changeHandler = (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     evt.target.name === 'username' && setUsername(evt.target.value);
     evt.target.name === 'password' && setPassword(evt.target.value);
-  }
+  };
 
   return (
-    <Box
-      component='form'
-      onSubmit={onSubmit}
-      css={styles.box}
-    >
-      <Paper
-        elevation={3}
-        css={styles.paper}
-      >
+    <Box component='form' onSubmit={onSubmit} css={styles.box}>
+      <Paper elevation={3} css={styles.paper}>
         <Typography variant='h4' align='center'>
           Please login
         </Typography>
@@ -60,8 +53,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
             </Button>
           </Grid>
         </Grid>
-
       </Paper>
     </Box>
-  )
-}
+  );
+};
