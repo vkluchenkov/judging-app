@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styles } from './styles';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import { LoginProps } from './types';
@@ -9,6 +9,11 @@ import { FormInputField } from '../../ui-kit/Input/FormInputFIeld';
 export const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (username.length > 1 && password.length > 1) setButtonDisabled(false);
+  }, [username, password]);
 
   const onSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
@@ -22,7 +27,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <Box component='form' onSubmit={onSubmit} css={styles.box}>
+    <Box component='form' onSubmit={onSubmit} css={styles.box} noValidate>
       <Paper elevation={3} css={styles.paper}>
         <Typography variant='h4' align='center'>
           Please login
@@ -32,9 +37,11 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
             <FormInputField
               name='username'
               label='Username'
-              helperText='Use Demo'
               value={username}
               onChange={changeHandler}
+              required
+              inputProps={{ minLength: 2 }}
+              data-test='username-input'
             />
           </Grid>
           <Grid item xs={12}>
@@ -42,9 +49,11 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
               name='password'
               label='Password'
               type={'password'}
-              helperText='Use Demo'
               value={password}
               onChange={changeHandler}
+              required
+              inputProps={{ minLength: 2 }}
+              data-test='password-input'
             />
           </Grid>
           <Grid item xs={12}>
@@ -54,6 +63,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
               variant='contained'
               type='submit'
               disableElevation
+              disabled={buttonDisabled}
               data-test='submit-button'
             >
               Login
