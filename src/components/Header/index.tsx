@@ -9,7 +9,6 @@ export const Header: React.FC<HeaderProps> = ({ currentContest, currentCategory,
 
   const [alertActive, setAlertActive] = useState(false)
 
-
   const handleHelp = useCallback(() => {
     setAlertActive(true)
   }, []);

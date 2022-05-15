@@ -10,7 +10,7 @@ function App() {
   const handleLogin = () => setIsLoggedIn(true)
 
   return (
-    isLoggedIn ? <Main onLogout={handleLogout} /> : <Login onLogin={handleLogin} />
+    isLoggedIn ? <Main /> : <Login onLogin={handleLogin} />
   );
 }
 

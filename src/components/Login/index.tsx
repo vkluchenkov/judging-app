@@ -1,22 +1,25 @@
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
+import React, { useState } from "react";
 import { styles } from './styles';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { LoginForm, LoginProps } from './types';
-import { FormInputField } from '../../ui-kit/FormInputFIeld';
+import { LoginProps } from './types';
+import { FormInputField } from "../../ui-kit/Input/FormInputFIeld";
 
 export const Login: React.FC<LoginProps> = ({ onLogin }) => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
-  const { handleSubmit, control } = useForm<LoginForm>();
+  const onSubmit = (evt: React.FormEvent) => {
+    evt.preventDefault()
+    console.log({ username, password });
+    onLogin()
+  }
 
-  const onSubmit = handleSubmit(
-    (values) => {
-      console.log(values);
-      onLogin()
-    }
-  )
+  const changeHandler = (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    evt.target.name === 'username' && setUsername(evt.target.value);
+    evt.target.name === 'password' && setPassword(evt.target.value);
+  }
 
   return (
     <Box
@@ -34,19 +37,21 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
         <Grid container css={styles.gridContainer}>
           <Grid item xs={12}>
             <FormInputField
-              control={control}
               name='username'
               label='Username'
               helperText='Use Demo'
+              value={username}
+              onChange={changeHandler}
             />
           </Grid>
           <Grid item xs={12}>
             <FormInputField
-              control={control}
               name='password'
               label='Password'
               type={'password'}
               helperText='Use Demo'
+              value={password}
+              onChange={changeHandler}
             />
           </Grid>
           <Grid item xs={12}>
