@@ -19,12 +19,18 @@ export const Header: React.FC<HeaderProps> = ({ currentContest, currentCategory,
   return (
     <Box css={styles.box}>
       <div css={styles.titles}>
-        <Typography variant='h5'>{currentContest}</Typography>
-        <Typography variant='body1'>{currentCategory || 'No active category'}</Typography>
+        <Typography variant='h5' data-test='current-contest'>
+          {currentContest}
+        </Typography>
+        <Typography variant='body1' data-test='current-category'>
+          {currentCategory ?? 'No active category'}
+        </Typography>
       </div>
       <div css={styles.judge}>
-        <Typography variant='body1'>Hi {judge}!</Typography>
-        <Button size='small' onClick={handleHelp}>
+        <Typography variant='body1' data-test='judge'>
+          Hi {judge}!
+        </Typography>
+        <Button size='small' onClick={handleHelp} data-test='help-button'>
           Call help
         </Button>
       </div>
@@ -34,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({ currentContest, currentCategory,
         onClose={onAlertClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
-        <Alert severity='success' onClose={onAlertClose}>
+        <Alert severity='success' onClose={onAlertClose} data-test='alert'>
           Help request was sent!
         </Alert>
       </Snackbar>
