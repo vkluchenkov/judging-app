@@ -1,8 +1,12 @@
-import { Button } from '@mui/material';
 import { Header } from '../Header';
 import { Scoring } from '../Scoring';
+import { criterias } from '../mocks/criterias';
 
 export const Main: React.FC = () => {
+  const scoringHandler = async (results: Record<string, number | string>) => {
+    console.log(results);
+  };
+
   return (
     <>
       <Header
@@ -10,7 +14,7 @@ export const Main: React.FC = () => {
         judge='Leandro Ferreyra'
         currentCategory='Professionals semi-final'
       />
-      <Scoring participantName='Polina Ivanova' participantNumber={135} />
+      <Scoring name='Polina Ivanova' number={135} criterias={criterias} onSubmit={scoringHandler} />
     </>
   );
 };

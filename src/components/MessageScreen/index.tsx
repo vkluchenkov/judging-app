@@ -11,7 +11,7 @@ interface MessageScreenProps {
 export const MessageScreen: React.FC<MessageScreenProps> = ({ message }) => {
   return (
     <Box css={styles.box}>
-      <Typography variant='h4' align='center' css={styles.thankYou}>
+      <Typography variant='h4' align='center' css={styles.thankYou} data-test='message-text'>
         {message}
       </Typography>
     </Box>

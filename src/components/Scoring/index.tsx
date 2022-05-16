@@ -8,37 +8,8 @@ import { ScoringSlider } from '../../ui-kit/ScoringSlider';
 import { MessageScreen } from '../MessageScreen';
 import { styles } from './styles';
 import { ScoringProps } from './types';
-import { Criteria } from '../../models/criteria';
 
-const criterias: Criteria[] = [
-  {
-    id: 1,
-    name: 'Choreography',
-    description: 'Some kind of short description, explaining what this criteria means',
-  },
-  {
-    id: 2,
-    name: 'Technique',
-    description: 'Some kind of short description, explaining what this criteria means',
-  },
-  {
-    id: 3,
-    name: 'Image',
-    description: 'Some kind of short description, explaining what this criteria means',
-  },
-  {
-    id: 4,
-    name: 'Music conformity',
-    description: 'Some kind of short description, explaining what this criteria means',
-  },
-  {
-    id: 5,
-    name: 'Group sync',
-    description: 'Some kind of short description, explaining what this criteria means',
-  },
-];
-
-export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNumber }) => {
+export const Scoring: React.FC<ScoringProps> = ({ name, number, criterias, onSubmit }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [note, setNote] = useState('');
   const [sliders, setSliders] = useState<Record<string, number | number[]>>(
@@ -51,26 +22,22 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
   const noteHandler = (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
     setNote(evt.target.value);
 
-  const sliderHandler = (evt: Event, value: number | number[]) =>
-    setSliders((state) => {
-      const event = evt as never as React.ChangeEvent<HTMLInputElement>;
-      return {
-        ...state,
-        [event.target?.name]: value,
-      };
-    });
+  const sliderHandler = (evt: Event, value: number | number[]) => {
+    const event = evt as never as React.ChangeEvent<HTMLInputElement>;
+    setSliders((state) => ({ ...state, [event.target.name]: value }));
+  };
 
-  const onSubmit = (evt: React.FormEvent) => {
+  const submitHandler = async (evt: React.FormEvent) => {
     evt.preventDefault();
+    await onSubmit({ ...sliders, Note: note });
     setIsSubmitted(true);
-    console.log({ ...sliders, note });
   };
 
   const scoringSliders = useMemo(
     () =>
       criterias.map((criteria) => (
         <ListItem css={styles.listItem} key={'criteria' + criteria.id}>
-          <Typography variant='body1' css={styles.criteria}>
+          <Typography variant='body1' css={styles.criteria} data-test={'criteria' + criteria.id}>
             {criteria.name}:
             <Tooltip
               title={criteria.description}
@@ -78,7 +45,7 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
               leaveDelay={5000}
               leaveTouchDelay={5000}
             >
-              <HelpOutlineIcon fontSize='inherit' color='disabled' />
+              <HelpOutlineIcon fontSize='inherit' color='disabled' data-test='tooltip-icon' />
             </Tooltip>
           </Typography>
           <ScoringSlider
@@ -88,16 +55,16 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
           />
         </ListItem>
       )),
-    [sliders]
+    [sliders, criterias]
   );
 
   if (isSubmitted)
     return <MessageScreen message='Thank you! Please wait for the next participant.' />;
 
   return (
-    <Box css={styles.box} component='form' onSubmit={onSubmit}>
+    <Box css={styles.box} component='form' onSubmit={submitHandler}>
       <Typography variant='h5' align='center'>
-        #{participantNumber}: <strong>{participantName}</strong>
+        #{number}: <strong>{name}</strong>
       </Typography>
       <List css={styles.list}>{scoringSliders}</List>
       <FormInputField
@@ -108,8 +75,15 @@ export const Scoring: React.FC<ScoringProps> = ({ participantName, participantNu
         minRows={3}
         value={note}
         onChange={noteHandler}
+        data-test='note-input'
       />
-      <Button type='submit' size='large' variant='contained' css={styles.button}>
+      <Button
+        type='submit'
+        size='large'
+        variant='contained'
+        css={styles.button}
+        data-test='submit-button'
+      >
         Submit
       </Button>
     </Box>
