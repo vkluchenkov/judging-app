@@ -38,6 +38,15 @@ describe('<Header /> spec', () => {
     expect(alert).toBeVisible();
   });
 
+  it('Alert text should be "Help request was sent!"', async () => {
+    const { findByTestId } = render();
+    const button = await findByTestId('help-button');
+    fireEvent.click(button);
+    const alert = await findByTestId('alert');
+    const text = alert.querySelector('.MuiAlert-message');
+    expect(text?.textContent).toBe('Help request was sent!');
+  });
+
   it('Contest should be equal to props.currentContest', async () => {
     const { findByTestId } = render();
     const contest = await findByTestId('current-contest');
