@@ -29,7 +29,7 @@ export const Scoring: React.FC<ScoringProps> = ({ name, number, criterias, onSub
 
   const submitHandler = async (evt: React.FormEvent) => {
     evt.preventDefault();
-    await onSubmit({ ...sliders, Note: note });
+    await onSubmit({ ...sliders, Note: note, number, name });
     setIsSubmitted(true);
   };
 
@@ -52,6 +52,7 @@ export const Scoring: React.FC<ScoringProps> = ({ name, number, criterias, onSub
             name={criteria.name}
             value={sliders[criteria.name]}
             onChange={sliderHandler}
+            data-test='slider'
           />
         </ListItem>
       )),

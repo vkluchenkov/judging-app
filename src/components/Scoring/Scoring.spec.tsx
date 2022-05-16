@@ -74,6 +74,13 @@ describe('<Scoring /> spec', () => {
     expect(sliderTitle.textContent).toBe(`${props.criterias[0].name}:`);
   });
 
+  it('Slider initial value should be equal 5', async () => {
+    const { findByTestId } = render();
+    const slider = await findByTestId('slider');
+    const sliderInput = slider.querySelector('input');
+    expect(sliderInput!.value).toBe('5');
+  });
+
   it('Slider title tooltip should be visible on hover over icon', async () => {
     const { findByTestId } = render();
     const sliderIcon = await findByTestId('tooltip-icon');
