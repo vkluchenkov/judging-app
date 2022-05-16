@@ -18,7 +18,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const onSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
     console.log({ username, password });
-    onLogin();
+    onLogin({ username, password });
   };
 
   const changeHandler = (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {

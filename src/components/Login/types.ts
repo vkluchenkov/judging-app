@@ -1,3 +1,8 @@
 export interface LoginProps {
-  onLogin: () => void;
+  onLogin: (loginPayload: LoginPayload) => void;
+}
+
+export interface LoginPayload {
+  username: string;
+  password: string;
 }
