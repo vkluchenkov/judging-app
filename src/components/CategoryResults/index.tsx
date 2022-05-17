@@ -2,7 +2,7 @@
 
 import { Box, Button, Typography } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { columnBuilder } from './helpers/columnBuilder';
 import { styles } from './styles';
 import { CategoryResultsProps } from './types';
@@ -13,9 +13,12 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
   onEdit,
   onSubmit,
 }) => {
-  const editClickHandler = (params: any) => {
-    onEdit(params.row.number);
-  };
+  const editClickHandler = useCallback(
+    (params: any) => {
+      onEdit(params.row.number);
+    },
+    [onEdit]
+  );
 
   const columns: GridColDef[] = useMemo(() => {
     return columnBuilder(results, editClickHandler);

@@ -48,16 +48,6 @@ describe('<Scoring /> spec', () => {
     expect(onSubmit).toBeCalledTimes(1);
   });
 
-  it('Message should be visible on button click', async () => {
-    const { findByTestId } = render();
-    const button = await findByTestId('submit-button');
-    act(() => {
-      fireEvent.click(button);
-    });
-    const message = await findByTestId('message-text');
-    expect(message).toBeVisible();
-  });
-
   it('Slider title should be equal props', async () => {
     const { findByTestId } = render();
     const sliderTitle = await findByTestId('criteria1');

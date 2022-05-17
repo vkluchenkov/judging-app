@@ -12,7 +12,7 @@ export const Scoring: React.FC<ScoringProps> = ({ name, number, criterias, onSub
   const [note, setNote] = useState('');
   const [sliders, setSliders] = useState<Record<string, number | number[]>>(
     criterias.reduce((acc, c) => {
-      acc[c.name] = 5;
+      acc[c.name.toLowerCase()] = 5;
       return acc;
     }, {} as Record<string, number | number[]>)
   );
@@ -47,7 +47,7 @@ export const Scoring: React.FC<ScoringProps> = ({ name, number, criterias, onSub
           </Typography>
           <ScoringSlider
             name={criteria.name}
-            value={sliders[criteria.name]}
+            value={sliders[criteria.name.toLowerCase()]}
             onChange={sliderHandler}
             data-test='slider'
           />
