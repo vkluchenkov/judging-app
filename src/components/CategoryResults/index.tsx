@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import { columnBuilder } from './helpers/columnBuilder';
@@ -10,10 +10,11 @@ import { CategoryResultsProps } from './types';
 export const CategoryResults: React.FC<CategoryResultsProps> = ({
   currentCategory,
   results,
+  onEdit,
   onSubmit,
 }) => {
   const editClickHandler = (params: any) => {
-    onSubmit(params.row.number);
+    onEdit(params.row.number);
   };
 
   const columns: GridColDef[] = useMemo(() => {
@@ -53,6 +54,16 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
         hideFooter
         autoHeight
       />
+      <Button
+        type='button'
+        size='large'
+        variant='contained'
+        css={styles.button}
+        data-test='submit-button'
+        onClick={onSubmit}
+      >
+        Submit category
+      </Button>
     </Box>
   );
 };

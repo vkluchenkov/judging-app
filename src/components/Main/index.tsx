@@ -21,6 +21,10 @@ export const Main: React.FC = () => {
     setView('scoring');
   };
 
+  const resultsSubmitHandler = () => {
+    setView('');
+  };
+
   // temp for dev
   const viewHandler = (event: SelectChangeEvent) => setView(event.target.value as View);
 
@@ -41,7 +45,8 @@ export const Main: React.FC = () => {
         <CategoryResults
           currentCategory='Professionals semi-final'
           results={results}
-          onSubmit={resultsEditHandler}
+          onEdit={resultsEditHandler}
+          onSubmit={resultsSubmitHandler}
         />
       );
     return <MessageScreen message="You've nothing to do, yey!" />;

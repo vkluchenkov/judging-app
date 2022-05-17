@@ -14,4 +14,9 @@ export const styles = createStyles({
       outline: 'none',
     },
   },
+  button: {
+    maxWidth: 'fit-content',
+    alignSelf: 'center',
+    margin: '20px 0 0',
+  },
 });
