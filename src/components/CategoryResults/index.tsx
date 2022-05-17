@@ -20,20 +20,21 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
     return columnBuilder(results, editClickHandler);
   }, [results, editClickHandler]);
 
-  const rows = [
-    {
-      id: 1,
-      number: 154,
-      name: 'Гадя Петрова',
-      choreography: 5,
-      technique: 5,
-      image: 5,
-      'music conformity': 5,
-      total: 20,
-      place: 1,
-      note: 'Ну вы Гадя и Петрова!',
-    },
-  ];
+  const rows = useMemo(() => {
+    return results.map((res) => {
+      const resScores: Record<string, number> = {};
+      res.scores.forEach((s) => (resScores[s.name.toLowerCase()] = s.score));
+      return {
+        id: res.number,
+        number: res.number,
+        name: res.name,
+        ...resScores,
+        total: res.total,
+        place: res.place,
+        note: res.note,
+      };
+    });
+  }, [results]);
 
   return (
     <Box css={styles.box}>
