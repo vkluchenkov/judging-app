@@ -58,16 +58,6 @@ describe('<Scoring /> spec', () => {
     expect(message).toBeVisible();
   });
 
-  it('Message text should be "Thank you! Please wait for the next participant."', async () => {
-    const { findByTestId } = render();
-    const button = await findByTestId('submit-button');
-    act(() => {
-      fireEvent.click(button);
-    });
-    const message = await findByTestId('message-text');
-    expect(message.textContent).toBe('Thank you! Please wait for the next participant.');
-  });
-
   it('Slider title should be equal props', async () => {
     const { findByTestId } = render();
     const sliderTitle = await findByTestId('criteria1');

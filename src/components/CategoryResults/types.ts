@@ -1,6 +1,7 @@
 export interface CategoryResultsProps {
   currentCategory: string;
   results: Result[];
+  onSubmit: (number: number) => void;
 }
 
 export interface Result {
