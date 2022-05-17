@@ -18,11 +18,15 @@ export const results: Result[] = [
         score: 7,
       },
       {
+        name: 'Charisma',
+        score: 7,
+      },
+      {
         name: 'Music conformity',
         score: 7,
       },
     ],
-    total: 28,
+    total: 35,
     place: 1,
     note: 'Ну вы Гадя и Петрова, однако',
   },
@@ -43,11 +47,15 @@ export const results: Result[] = [
         score: 6,
       },
       {
+        name: 'Charisma',
+        score: 6,
+      },
+      {
         name: 'Music conformity',
         score: 6,
       },
     ],
-    total: 28,
+    total: 30,
     place: 1,
     note: '',
   },

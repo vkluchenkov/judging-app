@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { useMemo } from 'react';
+import { columnBuilder } from './helpers/columnBuilder';
 import { styles } from './styles';
 import { CategoryResultsProps } from './types';
 
@@ -14,174 +16,9 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
     onSubmit(params.row.number);
   };
 
-  const newColumns = (): GridColDef[] => {
-    const numberColumn = {
-      field: 'number',
-      headerName: '#',
-      flex: 50,
-      editable: false,
-      sortable: false,
-    };
-
-    const nameColumn = {
-      field: 'name',
-      headerName: 'Participant',
-      flex: 150,
-      editable: false,
-      sortable: false,
-    };
-
-    const noteColumn = {
-      field: 'note',
-      headerName: 'Note',
-      editable: false,
-      sortable: false,
-      flex: 250,
-    };
-
-    const totalColumn = {
-      field: 'total',
-      headerName: 'Total',
-      flex: 70,
-      editable: false,
-      align: 'center',
-      headerAlign: 'center',
-    };
-
-    const placeColumn = {
-      field: 'place',
-      headerName: 'Place',
-      flex: 70,
-      editable: false,
-      // align: 'center',
-      // headerAlign: 'center',
-    };
-
-    const editColumn = {
-      field: 'edit',
-      headerName: 'Edit',
-      flex: 70,
-      editable: false,
-      align: 'center',
-      headerAlign: 'center',
-      sortable: false,
-      renderCell: (params: any) => {
-        return <Button onClick={() => editClickHandler(params)}>Edit</Button>;
-      },
-    };
-
-    // Scores
-    const scoresNames = results[0].scores.map((score) => score.name);
-    const scoresColumns = scoresNames.map((name) => {
-      return {
-        field: name.toLowerCase(),
-        headerName: name,
-        flex: 70,
-        editable: false,
-        sortable: false,
-        align: 'center',
-        headerAlign: 'center',
-      };
-    });
-
-    return [
-      numberColumn,
-      nameColumn,
-      ...scoresColumns,
-      noteColumn,
-      totalColumn,
-      placeColumn,
-      editColumn,
-    ];
-  };
-
-  const columns: GridColDef[] = [
-    {
-      field: 'number',
-      headerName: '#',
-      flex: 50,
-      editable: false,
-      sortable: false,
-    },
-    {
-      field: 'name',
-      headerName: 'Participant',
-      flex: 150,
-      editable: false,
-      sortable: false,
-    },
-    {
-      field: 'choreography',
-      headerName: 'Choreo',
-      flex: 70,
-      editable: false,
-      sortable: false,
-      align: 'center',
-      headerAlign: 'center',
-    },
-    {
-      field: 'teachnique',
-      headerName: 'Tech',
-      flex: 70,
-      editable: false,
-      sortable: false,
-      align: 'center',
-      headerAlign: 'center',
-    },
-    {
-      field: 'image',
-      headerName: 'Image',
-      flex: 70,
-      editable: false,
-      sortable: false,
-      align: 'center',
-      headerAlign: 'center',
-    },
-    {
-      field: 'music',
-      headerName: 'Music',
-      flex: 70,
-      editable: false,
-      sortable: false,
-      align: 'center',
-      headerAlign: 'center',
-    },
-    {
-      field: 'note',
-      headerName: 'Note',
-      editable: false,
-      sortable: false,
-      flex: 250,
-    },
-    {
-      field: 'total',
-      headerName: 'Total',
-      flex: 70,
-      editable: false,
-      align: 'center',
-      headerAlign: 'center',
-    },
-    {
-      field: 'place',
-      headerName: 'Place',
-      flex: 70,
-      editable: false,
-      align: 'center',
-      headerAlign: 'center',
-    },
-    {
-      field: 'edit',
-      headerName: 'Edit',
-      flex: 70,
-      editable: false,
-      align: 'center',
-      headerAlign: 'center',
-      sortable: false,
-      renderCell: (params) => {
-        return <Button onClick={() => editClickHandler(params)}>Edit</Button>;
-      },
-    },
-  ];
+  const columns: GridColDef[] = useMemo(() => {
+    return columnBuilder(results, editClickHandler);
+  }, [results, editClickHandler]);
 
   const rows = [
     {
@@ -189,7 +26,7 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
       number: 154,
       name: 'Гадя Петрова',
       choreography: 5,
-      teachnique: 5,
+      technique: 5,
       image: 5,
       'music conformity': 5,
       total: 20,
@@ -206,7 +43,7 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
       <DataGrid
         css={styles.grid}
         rows={rows}
-        columns={newColumns()}
+        columns={columns}
         pageSize={100}
         disableSelectionOnClick
         disableColumnFilter
