@@ -24,7 +24,7 @@ export const Scoring: React.FC<ScoringProps> = ({ name, number, criterias, onSub
 
   const sliderHandler = (evt: Event, value: number | number[]) => {
     const event = evt as never as React.ChangeEvent<HTMLInputElement>;
-    setSliders((state) => ({ ...state, [event.target.name]: value }));
+    setSliders((state) => ({ ...state, [event.target.name.toLowerCase()]: value }));
   };
 
   const submitHandler = async (evt: React.FormEvent) => {
