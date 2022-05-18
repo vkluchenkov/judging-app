@@ -2,7 +2,7 @@
 
 import { Box, Button, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridRowClassNameParams } from '@mui/x-data-grid';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { columnBuilder } from './helpers/columnBuilder';
 import { styles } from './styles';
 import { CategoryResultsProps } from './types';
@@ -13,7 +13,7 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
   onEdit,
   onSubmit,
 }) => {
-  const buttonDisabled = useMemo(() => {
+  const isConflict = useMemo(() => {
     const filter = results.filter((res) => res.conflict);
     return !!filter.length;
   }, [results]);
@@ -66,7 +66,7 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
         hideFooter
         autoHeight
       />
-      <Typography variant='body1' align='center' display={buttonDisabled ? 'block' : 'none'}>
+      <Typography variant='body1' align='center' display={isConflict ? 'block' : 'none'}>
         You need to resolve all conflicts before submitting results
       </Typography>
       <Button
@@ -76,7 +76,7 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
         css={styles.button}
         data-test='submit-button'
         onClick={onSubmit}
-        disabled={buttonDisabled}
+        disabled={isConflict}
       >
         Submit category
       </Button>
