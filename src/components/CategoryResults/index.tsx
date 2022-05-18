@@ -15,7 +15,6 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
 }) => {
   const buttonDisabled = useMemo(() => {
     const filter = results.filter((res) => res.conflict);
-    console.log(!!!filter.length);
     return !!filter.length;
   }, [results]);
 
