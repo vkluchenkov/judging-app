@@ -7,10 +7,10 @@ import { MessageScreen } from '../MessageScreen';
 import { useMemo, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
-declare type View = 'scoring' | 'message' | 'results' | '';
+declare type View = 'scoring' | 'message' | 'results';
 
 export const Main: React.FC = () => {
-  const [view, setView] = useState<View>('');
+  const [view, setView] = useState<View | null>(null);
 
   const scoringHandler = async (results: Record<string, number | string>) => {
     console.log(results);
@@ -22,11 +22,12 @@ export const Main: React.FC = () => {
   };
 
   const resultsSubmitHandler = () => {
-    setView('');
+    setView(null);
   };
 
   // temp for dev
-  const viewHandler = (event: SelectChangeEvent) => setView(event.target.value as View);
+  const viewHandler = (event: SelectChangeEvent) =>
+    setView(event.target.value ? (event.target.value as View) : null);
 
   const currentView = useMemo(() => {
     if (view === 'scoring')
@@ -64,11 +65,17 @@ export const Main: React.FC = () => {
       {/* temp for dev */}
       <FormControl style={{ width: '200px', margin: '20px' }}>
         <InputLabel id='label'>View</InputLabel>
-        <Select labelId='label' id='select' value={view} label='View' onChange={viewHandler}>
+        <Select
+          labelId='label'
+          id='select'
+          value={view ? view : ''}
+          label='View'
+          onChange={viewHandler}
+        >
           <MenuItem value={'scoring'}>Scoring</MenuItem>
           <MenuItem value={'message'}>Message</MenuItem>
           <MenuItem value={'results'}>Results</MenuItem>
-          <MenuItem value={''}>No view</MenuItem>
+          <MenuItem value={''}>Reset view</MenuItem>
         </Select>
       </FormControl>
     </>
