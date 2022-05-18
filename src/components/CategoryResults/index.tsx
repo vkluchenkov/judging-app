@@ -1,11 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
 import { Box, Button, Typography } from '@mui/material';
-import { DataGrid, GridColDef, GridRowClassNameParams } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridColDef,
+  GridRenderCellParams,
+  GridRowClassNameParams,
+} from '@mui/x-data-grid';
 import { useCallback, useMemo } from 'react';
 import { columnBuilder } from './helpers/columnBuilder';
 import { styles } from './styles';
-import { CategoryResultsProps } from './types';
+import { CategoryResultsProps, Result } from './types';
 
 export const CategoryResults: React.FC<CategoryResultsProps> = ({
   currentCategory,
@@ -19,7 +24,7 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
   }, [results]);
 
   const editClickHandler = useCallback(
-    (params: any) => {
+    (params: GridRenderCellParams<string, Result>) => {
       onEdit(params.row.number);
     },
     [onEdit]

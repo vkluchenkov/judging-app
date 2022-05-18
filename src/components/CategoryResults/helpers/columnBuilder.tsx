@@ -2,7 +2,10 @@ import { Result } from '../types';
 import { Button } from '@mui/material';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 
-export const columnBuilder = (results: Result[], editClickHandler: (params: any) => void) => {
+export const columnBuilder = (
+  results: Result[],
+  editClickHandler: (params: GridRenderCellParams<string, Result>) => void
+) => {
   const numberColumn: GridColDef = {
     field: 'number',
     headerName: '#',
