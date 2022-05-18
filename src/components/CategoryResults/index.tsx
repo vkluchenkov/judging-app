@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import { Box, Button, Typography } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { useCallback, useMemo } from 'react';
+import { DataGrid, GridColDef, GridRowClassNameParams } from '@mui/x-data-grid';
+import { useCallback, useMemo, useState } from 'react';
 import { columnBuilder } from './helpers/columnBuilder';
 import { styles } from './styles';
 import { CategoryResultsProps } from './types';
@@ -13,6 +13,12 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
   onEdit,
   onSubmit,
 }) => {
+  const buttonDisabled = useMemo(() => {
+    const filter = results.filter((res) => res.conflict);
+    console.log(!!!filter.length);
+    return !!filter.length;
+  }, [results]);
+
   const editClickHandler = useCallback(
     (params: any) => {
       onEdit(params.row.number);
@@ -36,6 +42,7 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
         total: res.total,
         place: res.place,
         note: res.note,
+        conflict: !!res.conflict,
       };
     });
   }, [results]);
@@ -46,6 +53,9 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
         {currentCategory} results:
       </Typography>
       <DataGrid
+        getRowClassName={(params: GridRowClassNameParams) =>
+          params.row.conflict ? 'conflict' : ''
+        }
         css={styles.grid}
         rows={rows}
         columns={columns}
@@ -57,6 +67,9 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
         hideFooter
         autoHeight
       />
+      <Typography variant='body1' align='center' display={buttonDisabled ? 'block' : 'none'}>
+        You need to resolve all conflicts before submitting results
+      </Typography>
       <Button
         type='button'
         size='large'
@@ -64,6 +77,7 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
         css={styles.button}
         data-test='submit-button'
         onClick={onSubmit}
+        disabled={buttonDisabled}
       >
         Submit category
       </Button>

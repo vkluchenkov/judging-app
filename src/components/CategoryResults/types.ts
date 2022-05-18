@@ -12,4 +12,5 @@ export interface Result {
   total: number;
   place: number;
   note: string;
+  conflict?: number | null;
 }

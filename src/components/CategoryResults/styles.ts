@@ -13,6 +13,9 @@ export const styles = createStyles({
     '& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus': {
       outline: 'none',
     },
+    '& .conflict': {
+      backgroundColor: 'rgba(255, 0, 0, .1)',
+    },
   },
   button: {
     maxWidth: 'fit-content',
