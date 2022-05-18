@@ -88,10 +88,11 @@ describe('<CategoryResults /> spec', () => {
     expect(conflictNote).toBeVisible();
   });
 
-  it('Conflict note should be hidden if no conflict in results', async () => {
+  it('Conflict note should not be visible if no conflict in results', async () => {
+    props.results[0].conflict = 0;
     const { findByTestId } = await render();
-    const note = findByTestId('conflict-note');
-    expect(note).not.toBeInTheDocument();
+    const conflictNote = await findByTestId('conflict-note');
+    expect(conflictNote).not.toBeVisible();
   });
 
   it('Submit should be enabled if no conflict in results', async () => {
