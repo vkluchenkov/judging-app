@@ -1,6 +1,6 @@
 import { Result } from '../types';
 import { Button } from '@mui/material';
-import { GridColDef } from '@mui/x-data-grid';
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 
 export const columnBuilder = (results: Result[], editClickHandler: (params: any) => void) => {
   const numberColumn: GridColDef = {
@@ -53,7 +53,7 @@ export const columnBuilder = (results: Result[], editClickHandler: (params: any)
     align: 'center',
     headerAlign: 'center',
     sortable: false,
-    renderCell: (params: any) => {
+    renderCell: (params: GridRenderCellParams) => {
       return <Button onClick={() => editClickHandler(params)}>Edit</Button>;
     },
   };
