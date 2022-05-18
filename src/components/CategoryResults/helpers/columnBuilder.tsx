@@ -18,6 +18,7 @@ export const columnBuilder = (
     field: 'name',
     headerName: 'Participant',
     flex: 120,
+    minWidth: 120,
     editable: false,
     sortable: false,
   };
@@ -28,6 +29,7 @@ export const columnBuilder = (
     editable: false,
     sortable: false,
     flex: 80,
+    minWidth: 80,
   };
 
   const totalColumn: GridColDef = {
@@ -57,7 +59,11 @@ export const columnBuilder = (
     headerAlign: 'center',
     sortable: false,
     renderCell: (params: GridRenderCellParams) => {
-      return <Button onClick={() => editClickHandler(params)}>Edit</Button>;
+      return (
+        <Button onClick={() => editClickHandler(params)} data-test='edit-btn'>
+          Edit
+        </Button>
+      );
     },
   };
 

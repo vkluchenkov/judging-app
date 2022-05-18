@@ -53,7 +53,7 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
 
   return (
     <Box css={styles.box}>
-      <Typography variant='h5' align='center'>
+      <Typography variant='h5' align='center' data-test='title'>
         {currentCategory} results:
       </Typography>
       <DataGrid
@@ -70,8 +70,14 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
         disableColumnSelector
         hideFooter
         autoHeight
+        data-test='grid'
       />
-      <Typography variant='body1' align='center' display={isConflict ? 'block' : 'none'}>
+      <Typography
+        variant='body1'
+        align='center'
+        display={isConflict ? 'block' : 'none'}
+        data-test='conflict-note'
+      >
         You need to resolve all conflicts before submitting results
       </Typography>
       <Button
@@ -79,9 +85,9 @@ export const CategoryResults: React.FC<CategoryResultsProps> = ({
         size='large'
         variant='contained'
         css={styles.button}
-        data-test='submit-button'
         onClick={onSubmit}
         disabled={isConflict}
+        data-test='submit-button'
       >
         Submit category
       </Button>

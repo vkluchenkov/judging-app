@@ -22,12 +22,6 @@ describe('<Scoring /> spec', () => {
     return testingRender(<Scoring {...props} />);
   };
 
-  it('Button text should be "Submit"', async () => {
-    const { findByTestId } = render();
-    const button = await findByTestId('submit-button');
-    expect(button.textContent).toEqual('Submit');
-  });
-
   it('Note value should equal input', async () => {
     const { findByTestId } = render();
     const muiInput = await findByTestId('note-input');
