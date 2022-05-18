@@ -22,12 +22,6 @@ describe('<Scoring /> spec', () => {
     return testingRender(<Scoring {...props} />);
   };
 
-  it('Button text should be "Submit"', async () => {
-    const { findByTestId } = render();
-    const button = await findByTestId('submit-button');
-    expect(button.textContent).toEqual('Submit');
-  });
-
   it('Note value should equal input', async () => {
     const { findByTestId } = render();
     const muiInput = await findByTestId('note-input');
@@ -46,26 +40,6 @@ describe('<Scoring /> spec', () => {
       fireEvent.click(button);
     });
     expect(onSubmit).toBeCalledTimes(1);
-  });
-
-  it('Message should be visible on button click', async () => {
-    const { findByTestId } = render();
-    const button = await findByTestId('submit-button');
-    act(() => {
-      fireEvent.click(button);
-    });
-    const message = await findByTestId('message-text');
-    expect(message).toBeVisible();
-  });
-
-  it('Message text should be "Thank you! Please wait for the next participant."', async () => {
-    const { findByTestId } = render();
-    const button = await findByTestId('submit-button');
-    act(() => {
-      fireEvent.click(button);
-    });
-    const message = await findByTestId('message-text');
-    expect(message.textContent).toBe('Thank you! Please wait for the next participant.');
   });
 
   it('Slider title should be equal props', async () => {
