@@ -6,15 +6,21 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { FormInputField } from '../../ui-kit/Input/FormInputFIeld';
 import { ScoringSlider } from '../../ui-kit/ScoringSlider';
 import { styles } from './styles';
-import { ScoringProps } from './types';
+import { Score, ScoringProps } from './types';
 
-export const Scoring: React.FC<ScoringProps> = ({ name, number, criterias, onSubmit }) => {
+export const Scoring: React.FC<ScoringProps> = ({
+  name,
+  number,
+  performanceId,
+  criterias,
+  onSubmit,
+}) => {
   const [note, setNote] = useState('');
-  const [sliders, setSliders] = useState<Record<string, number | number[]>>(
+  const [sliders, setSliders] = useState<Record<string, number>>(
     criterias.reduce((acc, c) => {
       acc[c.name.toLowerCase()] = 5;
       return acc;
-    }, {} as Record<string, number | number[]>)
+    }, {} as Record<string, number>)
   );
 
   const noteHandler = (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
@@ -22,12 +28,23 @@ export const Scoring: React.FC<ScoringProps> = ({ name, number, criterias, onSub
 
   const sliderHandler = (evt: Event, value: number | number[]) => {
     const event = evt as never as React.ChangeEvent<HTMLInputElement>;
-    setSliders((state) => ({ ...state, [event.target.name.toLowerCase()]: value }));
+    if (typeof value === 'number')
+      setSliders((state) => ({ ...state, [event.target.name.toLowerCase()]: value }));
+  };
+
+  const dto = () => {
+    const slidersDto: Score[] = [];
+    criterias.forEach((c) => {
+      const slider = sliders[c.name.toLowerCase()];
+      slidersDto.push({ criteriaId: c.id, score: slider });
+    });
+    return slidersDto;
   };
 
   const submitHandler = async (evt: React.FormEvent) => {
     evt.preventDefault();
-    await onSubmit({ ...sliders, Note: note, number, name });
+    const scores = dto();
+    await onSubmit({ scores, note: note, performanceId });
   };
 
   const scoringSliders = useMemo(

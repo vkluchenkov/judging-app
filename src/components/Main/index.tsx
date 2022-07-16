@@ -6,13 +6,14 @@ import { results } from '../mocks/results';
 import { MessageScreen } from '../MessageScreen';
 import { useMemo, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { ScoresPayload } from '../Scoring/types';
 
 declare type View = 'scoring' | 'message' | 'results';
 
 export const Main: React.FC = () => {
   const [view, setView] = useState<View | null>(null);
 
-  const scoringHandler = async (results: Record<string, number | string>) => {
+  const scoringHandler = async (results: ScoresPayload) => {
     console.log(results);
   };
 
@@ -35,6 +36,7 @@ export const Main: React.FC = () => {
         <Scoring
           name='Polina Ivanova'
           number={135}
+          performanceId={135}
           criterias={criterias}
           onSubmit={scoringHandler}
         />

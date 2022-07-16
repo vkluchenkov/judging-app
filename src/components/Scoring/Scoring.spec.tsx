@@ -12,6 +12,7 @@ describe('<Scoring /> spec', () => {
     onSubmit = jest.fn();
     props = {
       name: 'Polina Ivanova',
+      performanceId: 135,
       number: 135,
       criterias: [{ id: 1, name: 'Mock name', description: 'Mock description' }],
       onSubmit,
