@@ -1,7 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { Slider, SliderProps } from '@mui/material';
+import { Slider, SliderProps as MuiSliderProps } from '@mui/material';
 import { styles } from './styles';
+
+type SliderProps = MuiSliderProps & {
+  onChange?: (event: Event, value: number, activeThumb: number) => void;
+};
 
 export const ScoringSlider: React.FC<SliderProps> = (props) => {
   return (
